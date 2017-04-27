@@ -1,5 +1,5 @@
 * html4.lisp
-#+BEGIN_SRC lisp
+#+BEGIN_SRC lisp :tangle html4.lisp :pidline no
 ;; -*- lisp -*-
 
 (in-package :it.bese.yaclml)
@@ -511,7 +511,7 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 #+END_SRC
 ** 2017.04.27
-#+BEGIN_SRC lisp :tangle html4.lisp :padline no
+#+BEGIN_SRC lisp #tangle html4.lisp :padline no
 ;; -*- lisp -*-
 
 (in-package :it.bese.yaclml)
@@ -741,7 +741,8 @@ http://www.w3.org/TR/xhtml1/#guidelines"
   (assert (or (and (not prologue)
                    (not doctype))
               (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
-  (cond (doctype
+  ;; 如果傳來 "" 預設為 html5 2017.04.27 L.S.K.
+  (cond ((unless (equal doctype ""))
 	 (emit-code `(awhen ,doctype
 		       (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
 		       (princ it *yaclml-stream*)

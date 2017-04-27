@@ -1,3 +1,4 @@
+
 ;; -*- lisp -*-
 
 (in-package :it.bese.yaclml)
@@ -229,7 +230,7 @@ http://www.w3.org/TR/xhtml1/#guidelines"
               (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
   (when doctype
     (emit-code `(awhen ,doctype
-                 (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
+		 (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
                  (princ it *yaclml-stream*)
                  (princ (strcat ">" ~%) *yaclml-stream*))))
   (when prologue
