@@ -510,20 +510,11 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 
 #+END_SRC
-** 2017.04.27
-#+BEGIN_SRC lisp #tangle html4.lisp :padline no
-;; -*- lisp -*-
-
+* html5.lisp
+- 2017.04.27
+** Helper macro fer defining the tag macros
+#+BEGIN_SRC lisp :tangle tag-macros.lisp
 (in-package :it.bese.yaclml)
-
-;;;; * YACLML tags mapping to HTML4 tags.
-
-(defparameter +xhtml-strict-doctype+
-  "\"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"")
-(defparameter +xhtml-transitional-doctype+
-  "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/transitional.dtd\"")
-(defparameter +xhtml-frameset-doctype+
-  "\"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"")
 
 ;;;; ** Helper macro fer defining the tag macros
 
@@ -586,16 +577,51 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 	 when rest
 	 do (write-char #\& href)))))
 
-;;;; * All HTML4 tags
+#+END_SRC
+** tags mapping to HTML5 tags.
+#+BEGIN_SRC lisp :tangle html5.lisp :padline no
+;; -*- lisp -*-
 
-;;;; This list taken from http://www.wdvl.com/Authoring/HTML/4/Tags
+(in-package :it.bese.yaclml)
 
+;;;; * YACLML tags mapping to HTML4 tags.
+
+(defparameter +xhtml-strict-doctype+
+  "\"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"")
+(defparameter +xhtml-transitional-doctype+
+  "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/transitional.dtd\"")
+(defparameter +xhtml-frameset-doctype+
+  "\"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"")
+
+
+;;;; * All HTML5 tags
+
+;;;; This list taken from https://www.w3schools.com/tags/
+(deftag <:!-- (&body contents)
+  (emit-code `(princ "<!-- " *yaclml-stream*))
+  (emit-body contents)
+  (emit-code `(princ (strcat " -->" ~%) *yaclml-stream*)))
+
+
+(deftag <:!DOCTYPE (&attribute doctype)
+  (if doctype
+      (progn
+	(emit-code `(awhen ,doctype
+		      (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
+		      (princ it *yaclml-stream*)
+		      (princ (strcat ">" ~%) *yaclml-stream*))))
+      (progn
+	(emit-code `(progn
+		      (princ "<!DOCTYPE html" *yaclml-stream*)
+		      (princ ">" *yaclml-stream*))))))
+      
 (def-html-tag <:a :core :i18n :event
               accesskey
               charset
               coords
               href
               hreflang
+	      media
               name
               onblur
               onfocus
@@ -612,17 +638,55 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 (def-html-tag <:address :core :event :i18n)
 
+(def-html-tag <:applet :core :event :i18n
+	      code
+	      object
+	      align
+	      alt
+	      archive
+	      codebase
+	      height
+	      hspace
+	      name
+	      vspace
+	      width)
+
 (def-empty-html-tag <:area :core :event :i18n
                     alt
                     accesskey
                     coords
+		    download
                     href
+		    hreflang
+		    media
                     nohref
                     onblur
                     onfocus
+		    rel
                     shape
+		    target
                     tabindex)
 
+(def-html-tag <:article :core :event :i18n)
+
+(def-html-tag <:aside :core :event :i18n)
+
+(deftag <:audio (&attribute src controls &body body)
+  (emit-princ "<audio ")
+  (when src
+    (emit-princ "src=\"")
+    (emit-princ src))
+    (emit-princ "\" ")
+  (emit-princ "controls")
+  (when controls
+    (emit-princ " ")
+    (emit-princ controls))
+  (emit-princ (strcat " " ~%))
+  (emit-princ ">")
+  (emit-body body)
+  (emit-princ "</audio")
+  (emit-princ (strcat ~% ">")))
+  
 (def-html-tag <:b :core :event :i18n)
 
 (def-empty-html-tag <:base href)
@@ -742,16 +806,18 @@ http://www.w3.org/TR/xhtml1/#guidelines"
                    (not doctype))
               (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
   ;; 如果傳來 "" 預設為 html5 2017.04.27 L.S.K.
-  (cond ((unless (equal doctype ""))
-	 (emit-code `(awhen ,doctype
-		       (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
+  ;; (format t "doctype: ~A~%" doctype)
+  (when doctype
+    (cond ((not (equal doctype ""))
+	   (emit-code `(awhen ,doctype
+			 (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
+			 (princ it *yaclml-stream*)
+			 (princ (strcat ">" ~%) *yaclml-stream*))))
+	  (t
+	   (emit-code `(awhen ,doctype
+			 (princ "<!DOCTYPE html" *yaclml-stream*)
 		       (princ it *yaclml-stream*)
-		       (princ (strcat ">" ~%) *yaclml-stream*))))
-	(t
-	 (emit-code `(awhen ,doctype
-		       (princ "<!DOCTYPE html" *yaclml-stream*)
-		       (princ it *yaclml-stream*)
-		       (princ (strcat ">" ~%) *yaclml-stream*)))))
+		       (princ (strcat ">" ~%) *yaclml-stream*))))))
   (when prologue
     (emit-code `(awhen ,prologue
                  (princ it *yaclml-stream*))))
