@@ -58,18 +58,18 @@
 
 ;; Not supported in HTML5. Use <embed> or <object> instead.
 ;; Defines an embedded applet
-(def-html-tag <:applet :core :event :i18n
-	      code
-	      object
-	      align
-	      alt
-	      archive
-	      codebase
-	      height
-	      hspace
-	      name
-	      vspace
-	      width)
+;; (def-html-tag <:applet :core :event :i18n
+;; 	      code
+;; 	      object
+;; 	      align
+;; 	      alt
+;; 	      archive
+;; 	      codebase
+;; 	      height
+;; 	      hspace
+;; 	      name
+;; 	      vspace
+;; 	      width)
 
 (def-empty-html-tag <:area :global :event
                     alt
@@ -90,24 +90,9 @@
 
 (def-html-tag <:aside :global :event)
 
-(deftag <:audio (&attribute src controls
-			   ;; &allow-custom-attributes custom-attributes
-			    &body body)
-  (emit-princ "<audio ")
-  (when src
-    (emit-princ "src=\"")
-    (emit-princ src)
-    (emit-princ "\" "))
-  (emit-princ "controls")
-  (when controls
-    (emit-princ " ")
-    (emit-princ controls))
-  (emit-princ (strcat " " ~%))
-  ;;(emit-code `(,@custom-attributes))
-  (emit-princ "  >")
-  (emit-body body)
-  (emit-princ "</audio")
-  (emit-princ (strcat ~% ">")))
+(def-media-html-tag <:audio :global :event
+		    src
+		    controls)
   
 (def-html-tag <:b :core :event :i18n)
 

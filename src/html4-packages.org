@@ -1,3 +1,7 @@
+HTML4
+* packages.lisp
+  包含 html4 tags export
+#+BEGIN_SRC lisp :tangle packages.lisp :padline no
 ;; -*- Mode: Lisp; indent-tabs-mode:nil -*-
 
 (in-package :common-lisp-user)
@@ -71,9 +75,8 @@
   (:documentation "YACLML programmatic HTML generation.")
   (:use)
   (:export
-   ;; HTML5
-   #:!-- #:!DOCTYPE #:a #:abbr #:acronym #:address ;;#:applet
-   #:area #:article #:aside #:audio #:b #:base #:bdo #:big
+   ;; HTML4
+   #:a #:abbr #:acronym #:address #:area #:b #:base #:bdo #:big
    #:blockquote #:body #:br #:button #:caption #:cite #:code #:col
    #:colgroup #:dd #:del #:dfn #:div #:dl #:dt #:em #:fieldset #:form
    #:frame #:frameset #:h1 #:h2 #:h3 #:h4 #:h5 #:h6 #:head #:hr #:html
@@ -166,3 +169,5 @@
 ;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#+END_SRC

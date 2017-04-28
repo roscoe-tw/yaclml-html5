@@ -18,7 +18,8 @@
 			  'contextmenu ;; 'data-*
 			  'dir 'draggable 'dropzone 'hidden
 			  'id 'lang 'spellcheck 'style
-			  'tabindex 'title 'translate))
+			  ;;'tabindex
+			  'title 'translate))
           (:event (attrs 'onclick 'ondblclick
                          'onkeydown 'onkeypress
                          'onkeyup 'onmousedown
@@ -27,12 +28,14 @@
 			 ;; 新增
 			 'onafterprint 'onbeforeprint
 			 'onbeforeuload 'onerror
-			 'onhashchange 'onload
+			 'onhashchange
+			 ;; 'onload
 			 'onmessage 'onoffline
 			 'ononline 'onpagehide
 			 'onpageshow 'onpopstate
 			 'onresize 'onstorge
-			 'onunload))
+			 ;; 'onunload
+			 ))
           (t (attrs attr))))
       (attrs))))
 
@@ -64,6 +67,35 @@ http://www.w3.org/TR/xhtml1/#guidelines"
                         ,custom-attributes)
          (emit-body body)
          (emit-close-tag ,(string-downcase (symbol-name name)))))))
+
+(defmacro def-media-html-tag (name &rest attributes)
+  (let ((effective-attributes (make-effective-attributes attributes)))
+    (with-unique-names (custom-attributes)
+      `(deftag ,name (&attribute ,@effective-attributes
+				 &allow-custom-attributes ,custom-attributes &body body)
+	 (incf %yaclml-indentation-depth% 2)
+	 (emit-princ ,(strcat "<" (string-downcase (symbol-name name))))
+	 (mapc #'emit-princ-attributes
+	       (list (list ,@(iter (for attr :in effective-attributes)
+				   (unless (equal (string-downcase (symbol-name attr)) "controls")
+				     (collect (string-downcase (symbol-name attr)))
+				     (collect attr))))))
+	 ;; 屬性 :controls
+	 (emit-princ " ")
+	 (emit-princ "controls")
+	 (cond ((listp controls)
+		(emit-princ-attributes (list* controls)))
+	       (t
+		(emit-princ " ")
+		(emit-princ controls)))
+
+	 (emit-indentation)
+	 (emit-princ ">")
+	 (emit-body body)
+	 (decf %yaclml-indentation-depth% 2)
+	 (emit-princ "</" ,(string-downcase (symbol-name name)))
+	 (emit-indentation)
+	 (emit-princ ">")))))
 
 (defun href (base &rest params)
   (with-output-to-string (href)

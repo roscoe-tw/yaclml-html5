@@ -1,3 +1,8 @@
+* html4-packages.org
+- [[file+emacs:html4-packages.org][html4-packages.org]]
+* packages.lisp
+  包含 html5 tags export
+#+BEGIN_SRC lisp :tangle packages.lisp :padline no
 ;; -*- Mode: Lisp; indent-tabs-mode:nil -*-
 
 (in-package :common-lisp-user)
@@ -166,3 +171,5 @@
 ;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#+END_SRC
