@@ -8,13 +8,31 @@
     (with-collector (attrs)
       (dolist (attr attributes)
         (case attr
+	  ;; 保留原設定搭配非 html5
           (:core  (attrs 'class 'id 'style 'title))
-          (:i18n  (attrs 'dir 'lang))
+	  (:i18n  (attrs 'dir 'lang))
+	  ;; 增加 global ，包含原設計, html5
+	  ;;'data-* 未加入，因為它似乎是自定義屬性，目前未有方法使用它
+	  ;; Used to store custom data private to the page or application
+	  (:global (attrs 'accesskey 'class 'contenteditable
+			  'contextmenu ;; 'data-*
+			  'dir 'draggable 'dropzone 'hidden
+			  'id 'lang 'spellcheck 'style
+			  'tabindex 'title 'translate))
           (:event (attrs 'onclick 'ondblclick
                          'onkeydown 'onkeypress
                          'onkeyup 'onmousedown
                          'onmousemove 'onmouseout
-                         'onmouseover 'onmouseup))
+                         'onmouseover 'onmouseup
+			 ;; 新增
+			 'onafterprint 'onbeforeprint
+			 'onbeforeuload 'onerror
+			 'onhashchange 'onload
+			 'onmessage 'onoffline
+			 'ononline 'onpagehide
+			 'onpageshow 'onpopstate
+			 'onresize 'onstorge
+			 'onunload))
           (t (attrs attr))))
       (attrs))))
 

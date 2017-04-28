@@ -16,25 +16,23 @@
 
 ;;;; This list taken from https://www.w3schools.com/tags/
 (deftag <:!-- (&body contents)
-  (emit-code `(princ "<!-- " *yaclml-stream*))
+  (emit-princ "<!-- ")
   (emit-body contents)
-  (emit-code `(princ (strcat " -->" ~%) *yaclml-stream*)))
+  (emit-princ (strcat " -->" ~%)))
 
 
 (deftag <:!DOCTYPE (&attribute doctype)
   (if doctype
       (progn
-	(emit-code `(awhen ,doctype
-		      (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
-		      (princ it *yaclml-stream*)
-		      (princ (strcat ">" ~%) *yaclml-stream*))))
+	(awhen doctype
+	  (emit-princ "<!DOCTYPE html PUBLIC ")
+	  (emit-princ it)))
       (progn
-	(emit-code `(progn
-		      (princ "<!DOCTYPE html" *yaclml-stream*)
-		      (princ ">" *yaclml-stream*))))))
+	(emit-princ "<!DOCTYPE html")))
+  (emit-princ (strcat ">" ~%)))
+
       
-(def-html-tag <:a :core :i18n :event
-              accesskey
+(def-html-tag <:a :global :event
               charset
               coords
               href
@@ -52,10 +50,14 @@
 
 (def-html-tag <:abbr :core :event :i18n)
 
+;; Not supported in HTML5. Use <abbr> instead.
+;; Defines an acronym
 (def-html-tag <:acronym :core :event :i18n)
 
-(def-html-tag <:address :core :event :i18n)
+(def-html-tag <:address :global :event)
 
+;; Not supported in HTML5. Use <embed> or <object> instead.
+;; Defines an embedded applet
 (def-html-tag <:applet :core :event :i18n
 	      code
 	      object
@@ -69,9 +71,8 @@
 	      vspace
 	      width)
 
-(def-empty-html-tag <:area :core :event :i18n
+(def-empty-html-tag <:area :global :event
                     alt
-                    accesskey
                     coords
 		    download
                     href
@@ -83,24 +84,27 @@
 		    rel
                     shape
 		    target
-                    tabindex)
+                    type)
 
-(def-html-tag <:article :core :event :i18n)
+(def-html-tag <:article :global :event)
 
-(def-html-tag <:aside :core :event :i18n)
+(def-html-tag <:aside :global :event)
 
-(deftag <:audio (&attribute src controls &body body)
+(deftag <:audio (&attribute src controls
+			   ;; &allow-custom-attributes custom-attributes
+			    &body body)
   (emit-princ "<audio ")
   (when src
     (emit-princ "src=\"")
-    (emit-princ src))
-    (emit-princ "\" ")
+    (emit-princ src)
+    (emit-princ "\" "))
   (emit-princ "controls")
   (when controls
     (emit-princ " ")
     (emit-princ controls))
   (emit-princ (strcat " " ~%))
-  (emit-princ ">")
+  ;;(emit-code `(,@custom-attributes))
+  (emit-princ "  >")
   (emit-body body)
   (emit-princ "</audio")
   (emit-princ (strcat ~% ">")))

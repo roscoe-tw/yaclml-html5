@@ -1,10 +1,17 @@
-* tags-html4
-- [[file+emacs:tags-html4.org][tags-html4.org]]
-* html5.lisp
-- 2017.04.27
-** Helper macro fer defining the tag macros
-#+BEGIN_SRC lisp :tangle tag-macros.lisp
+* html4.lisp
+#+BEGIN_SRC lisp :tangle html4.lisp :pidline no
+;; -*- lisp -*-
+
 (in-package :it.bese.yaclml)
+
+;;;; * YACLML tags mapping to HTML4 tags.
+
+(defparameter +xhtml-strict-doctype+
+  "\"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"")
+(defparameter +xhtml-transitional-doctype+
+  "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/transitional.dtd\"")
+(defparameter +xhtml-frameset-doctype+
+  "\"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"")
 
 ;;;; ** Helper macro fer defining the tag macros
 
@@ -13,31 +20,13 @@
     (with-collector (attrs)
       (dolist (attr attributes)
         (case attr
-	  ;; 保留原設定搭配非 html5
           (:core  (attrs 'class 'id 'style 'title))
-	  (:i18n  (attrs 'dir 'lang))
-	  ;; 增加 global ，包含原設計, html5
-	  ;;'data-* 未加入，因為它似乎是自定義屬性，目前未有方法使用它
-	  ;; Used to store custom data private to the page or application
-	  (:global (attrs 'accesskey 'class 'contenteditable
-			  'contextmenu ;; 'data-*
-			  'dir 'draggable 'dropzone 'hidden
-			  'id 'lang 'spellcheck 'style
-			  'tabindex 'title 'translate))
+          (:i18n  (attrs 'dir 'lang))
           (:event (attrs 'onclick 'ondblclick
                          'onkeydown 'onkeypress
                          'onkeyup 'onmousedown
                          'onmousemove 'onmouseout
-                         'onmouseover 'onmouseup
-			 ;; 新增
-			 'onafterprint 'onbeforeprint
-			 'onbeforeuload 'onerror
-			 'onhashchange 'onload
-			 'onmessage 'onoffline
-			 'ononline 'onpagehide
-			 'onpageshow 'onpopstate
-			 'onresize 'onstorge
-			 'onunload))
+                         'onmouseover 'onmouseup))
           (t (attrs attr))))
       (attrs))))
 
@@ -85,50 +74,16 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 	 when rest
 	 do (write-char #\& href)))))
 
-#+END_SRC
-** tags mapping to HTML5 tags.
-- [[https://www.w3schools.com/tags/]]
-#+BEGIN_SRC lisp :tangle html5.lisp :padline no
-;; -*- lisp -*-
+;;;; * All HTML4 tags
 
-(in-package :it.bese.yaclml)
+;;;; This list taken from http://www.wdvl.com/Authoring/HTML/4/Tags
 
-;;;; * YACLML tags mapping to HTML4 tags.
-
-(defparameter +xhtml-strict-doctype+
-  "\"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"")
-(defparameter +xhtml-transitional-doctype+
-  "\"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/transitional.dtd\"")
-(defparameter +xhtml-frameset-doctype+
-  "\"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"")
-
-
-;;;; * All HTML5 tags
-
-;;;; This list taken from https://www.w3schools.com/tags/
-(deftag <:!-- (&body contents)
-  (emit-princ "<!-- ")
-  (emit-body contents)
-  (emit-princ (strcat " -->" ~%)))
-
-
-(deftag <:!DOCTYPE (&attribute doctype)
-  (if doctype
-      (progn
-	(awhen doctype
-	  (emit-princ "<!DOCTYPE html PUBLIC ")
-	  (emit-princ it)))
-      (progn
-	(emit-princ "<!DOCTYPE html")))
-  (emit-princ (strcat ">" ~%)))
-
-      
-(def-html-tag <:a :global :event
+(def-html-tag <:a :core :i18n :event
+              accesskey
               charset
               coords
               href
               hreflang
-	      media
               name
               onblur
               onfocus
@@ -141,65 +96,21 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 (def-html-tag <:abbr :core :event :i18n)
 
-;; Not supported in HTML5. Use <abbr> instead.
-;; Defines an acronym
 (def-html-tag <:acronym :core :event :i18n)
 
-(def-html-tag <:address :global :event)
+(def-html-tag <:address :core :event :i18n)
 
-;; Not supported in HTML5. Use <embed> or <object> instead.
-;; Defines an embedded applet
-(def-html-tag <:applet :core :event :i18n
-	      code
-	      object
-	      align
-	      alt
-	      archive
-	      codebase
-	      height
-	      hspace
-	      name
-	      vspace
-	      width)
-
-(def-empty-html-tag <:area :global :event
+(def-empty-html-tag <:area :core :event :i18n
                     alt
+                    accesskey
                     coords
-		    download
                     href
-		    hreflang
-		    media
                     nohref
                     onblur
                     onfocus
-		    rel
                     shape
-		    target
-                    type)
+                    tabindex)
 
-(def-html-tag <:article :global :event)
-
-(def-html-tag <:aside :global :event)
-
-(deftag <:audio (&attribute src controls
-			   ;; &allow-custom-attributes custom-attributes
-			    &body body)
-  (emit-princ "<audio ")
-  (when src
-    (emit-princ "src=\"")
-    (emit-princ src)
-    (emit-princ "\" "))
-  (emit-princ "controls")
-  (when controls
-    (emit-princ " ")
-    (emit-princ controls))
-  (emit-princ (strcat " " ~%))
-  ;;(emit-code `(,@custom-attributes))
-  (emit-princ "  >")
-  (emit-body body)
-  (emit-princ "</audio")
-  (emit-princ (strcat ~% ">")))
-  
 (def-html-tag <:b :core :event :i18n)
 
 (def-empty-html-tag <:base href)
@@ -318,19 +229,11 @@ http://www.w3.org/TR/xhtml1/#guidelines"
   (assert (or (and (not prologue)
                    (not doctype))
               (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
-  ;; 如果傳來 "" 預設為 html5 2017.04.27 L.S.K.
-  ;; (format t "doctype: ~A~%" doctype)
   (when doctype
-    (cond ((not (equal doctype ""))
-	   (emit-code `(awhen ,doctype
-			 (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
-			 (princ it *yaclml-stream*)
-			 (princ (strcat ">" ~%) *yaclml-stream*))))
-	  (t
-	   (emit-code `(awhen ,doctype
-			 (princ "<!DOCTYPE html" *yaclml-stream*)
-		       (princ it *yaclml-stream*)
-		       (princ (strcat ">" ~%) *yaclml-stream*))))))
+    (emit-code `(awhen ,doctype
+		 (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
+                 (princ it *yaclml-stream*)
+                 (princ (strcat ">" ~%) *yaclml-stream*))))
   (when prologue
     (emit-code `(awhen ,prologue
                  (princ it *yaclml-stream*))))
