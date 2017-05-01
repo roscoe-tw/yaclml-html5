@@ -90,9 +90,13 @@
 
 (def-html-tag <:aside :global :event)
 
-(def-media-html-tag <:audio :global :event
-		    src
-		    controls)
+(def-html-tag <:audio :global :event
+	      autoplay
+	      controls
+	      loop
+	      muted
+	      preload
+	      src)
   
 (def-html-tag <:b :global :event)
 
@@ -240,48 +244,73 @@
               olunload
               rows)
 
-(def-html-tag <:h1 :core :event :i18n)
+(def-html-tag <:h1 :global :event
+	      align)
 
-(def-html-tag <:h2 :core :event :i18n)
+(def-html-tag <:h2 :global :event
+	      align)
 
-(def-html-tag <:h3 :core :event :i18n)
+(def-html-tag <:h3 :global :event
+	      align)
 
-(def-html-tag <:h4 :core :event :i18n)
+(def-html-tag <:h4 :global :event
+	      align)
 
-(def-html-tag <:h5 :core :event :i18n)
+(def-html-tag <:h5 :global :event
+	      align)
 
-(def-html-tag <:h6 :core :event :i18n)
+(def-html-tag <:h6 :global :event
+	      align)
 
-(def-html-tag <:head :i18n
-              profile)
+(def-html-tag <:head :global
+	      profile)
 
-(def-empty-html-tag <:hr :core :event width align)
+(def-html-tag <:header :global :event)
+	      
+(def-empty-html-tag <:hr :global :event
+		    align
+		    noshade
+		    size
+		    width)
 
-(deftag <:html (&attribute dir lang prologue doctype
-                           &allow-custom-attributes custom-attributes
-                           &body body)
-  (assert (or (and (not prologue)
-                   (not doctype))
-              (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
-  ;; 如果傳來 "" 預設為 html5 2017.04.27 L.S.K.
-  ;; (format t "doctype: ~A~%" doctype)
-  (when doctype
-    (cond ((not (equal doctype ""))
-	   (emit-code `(awhen ,doctype
-			 (princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
-			 (princ it *yaclml-stream*)
-			 (princ (strcat ">" ~%) *yaclml-stream*))))
-	  (t
-	   (emit-code `(awhen ,doctype
-			 (princ "<!DOCTYPE html" *yaclml-stream*)
-		       (princ it *yaclml-stream*)
-		       (princ (strcat ">" ~%) *yaclml-stream*))))))
-  (when prologue
-    (emit-code `(awhen ,prologue
-                 (princ it *yaclml-stream*))))
-  (emit-open-tag "html" (list* "dir" dir "lang" lang custom-attributes))
-  (emit-body body)
-  (emit-close-tag "html"))
+(defmacro def-tag-html (&rest attributes)
+  "設定 <:html 其中 attributes 搭配 :global, manifest xmlns... 設定"
+  (let ((effective-attributes (make-effective-attributes attributes)))
+    (with-unique-names (custom-attributes)
+      `(deftag <:html (&attribute ,@effective-attributes
+				  ;; (&attribute dir lang prologue doctype
+				  &allow-custom-attributes ,custom-attributes
+				  &body body)
+	
+	 (assert (or (and (not prologue)
+			  (not doctype))
+		     (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
+	 ;; 如果傳來 "html" 預設為 html5 2017.05.02 L.S.K.
+	 (when doctype
+	   (cond ((not (equal doctype "html"))
+		  (emit-code `(awhen ,doctype
+				(princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
+				(princ it *yaclml-stream*)
+				(princ (strcat ">" ~%) *yaclml-stream*))))
+		 (t
+		  (emit-code `(awhen ,doctype
+				(princ "<!DOCTYPE " *yaclml-stream*)
+				(princ it *yaclml-stream*)
+				(princ (strcat ">" ~%) *yaclml-stream*))))))
+	 (when prologue
+	   (emit-code `(awhen ,prologue
+			 (princ it *yaclml-stream*))))
+	 (emit-open-tag "html"
+			(list ,@(iter (for attr :in (make-effective-attributes (list :global)))
+				      (collect (string-downcase (symbol-name attr)))
+				      (collect attr)))
+			;;,@(list* "manifest" manifest "xmlns" xmlns)
+			,custom-attributes)
+	 (emit-body body)
+	 (emit-close-tag "html")))))
+
+;; 設定 <:html, :doctype "html" => <!DOCTYPE html>
+(def-tag-html :global manifest xmlns prologue doctype)
 
 (def-html-tag <:i :core :event :i18n)
 
