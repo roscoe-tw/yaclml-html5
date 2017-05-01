@@ -12,7 +12,8 @@
           (:core  (attrs 'class 'id 'style 'title))
 	  (:i18n  (attrs 'dir 'lang))
 	  ;; 增加 global ，包含原設計, html5
-	  ;;'data-* 未加入，因為它似乎是自定義屬性，目前未有方法使用它
+	  ;;'data-* 自定義屬性，使用 (@ :data-* "abcde"), 其中 * 為自定名稱
+	  ;; 例如 (@ :data-aaa "test1") -> data-aaa="test1"
 	  ;; Used to store custom data private to the page or application
 	  (:global (attrs 'accesskey 'class 'contenteditable
 			  'contextmenu ;; 'data-*
@@ -79,7 +80,8 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 	       (list (list ,@(iter (for attr :in effective-attributes)
 				   (unless (equal (string-downcase (symbol-name attr)) "controls")
 				     (collect (string-downcase (symbol-name attr)))
-				     (collect attr))))))
+				     (collect attr))))
+		     ,custom-attributes))
 	 ;; 屬性 :controls
 	 (emit-princ " ")
 	 (emit-princ "controls")
