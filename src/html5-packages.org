@@ -77,18 +77,21 @@
   (:use)
   (:export
    ;; HTML5
-   #:!-- #:!DOCTYPE #:a #:abbr #:acronym #:address ;;#:applet
-   #:area #:article #:aside #:audio #:b #:base #:bdo #:big
-   #:blockquote #:body #:br #:button #:caption #:cite #:code #:col
-   #:colgroup #:dd #:del #:dfn #:div #:dl #:dt #:em #:fieldset #:form
+   #:!-- #:!DOCTYPE #:a #:abbr #:acronym #:address ;; #:applet
+   #:area #:article #:aside #:audio #:b #:base #:bdi #:bdo #:big
+   #:blockquote #:body #:br #:button #:canvas #:caption #:cite #:col
+   #:code #:col #:colgroup #:datalist #:dd #:del #:details #:dfn
+   #:dialog #:div
+   #:dl #:dt #:em #:embed #:fieldset #:figcaption #:figure #:footer #:form
    #:frame #:frameset #:h1 #:h2 #:h3 #:h4 #:h5 #:h6 #:head #:hr #:html
    #:i #:iframe #:img #:input #:ins #:kbd #:label #:legend #:li #:link
    #:map #:meta #:noframes #:noscript #:object #:ol #:optgroup #:option
-   #:p #:param #:pre #:q #:samp #:script #:select #:small #:span
+   #:p #:param
+   #:pre #:q #:samp #:script #:select #:small #:span
    #:strong #:style #:sub #:sup #:table #:tbody #:td #:textarea #:tfoot
    #:th #:thead #:title #:tr #:tt #:ul #:var
    ;; Not really HTML4, but close enough
-   #:applet #:param #:marquee #:embed
+   #:applet #:param #:marquee ;; #:embed
    ;; YACLML extended HTML
    #:href #:stylesheet #:text #:submit #:image #:checkbox #:file
    #:as-is #:as-html #:call-with-yaclml-stream #:comment #:progn

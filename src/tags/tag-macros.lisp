@@ -30,12 +30,12 @@
 			 'onafterprint 'onbeforeprint
 			 'onbeforeuload 'onerror
 			 'onhashchange
-			 ;; 'onload
+			 'onload
 			 'onmessage 'onoffline
 			 'ononline 'onpagehide
 			 'onpageshow 'onpopstate
 			 'onresize 'onstorge
-			 ;; 'onunload
+			 'onunload
 			 ))
           (t (attrs attr))))
       (attrs))))

@@ -94,43 +94,61 @@
 		    src
 		    controls)
   
-(def-html-tag <:b :core :event :i18n)
+(def-html-tag <:b :global :event)
 
-(def-empty-html-tag <:base href)
+(def-empty-html-tag <:base :global
+                    href
+                    target)
 
-(def-html-tag <:bdo :i18n
-              id
-              style
-              title)
+;; The <basefont> tag is not supported in HTML5.
+;; (def-html-tag <:basefont color face size)
 
+(def-html-tag <:bdi :global :event)
+
+(def-html-tag <:bdo :global :event)
+
+;; HTML <big> Tag. Not Supported in HTML5.
 (def-html-tag <:big :core :event :i18n)
 
-(def-html-tag <:blockquote :core :event :i18n
+(def-html-tag <:blockquote :global :event
               cite)
 
-(def-html-tag <:body :core :i18n :event
-              onload
-              onunload)
+(def-html-tag <:body :global :event
+	      alink
+	      background
+	      bgcolor
+	      link
+	      text
+	      vlink)
 
-(def-empty-html-tag <:br :core)
+(def-empty-html-tag <:br :global :event)
 
-(def-html-tag <:button :core :event :i18n
-              accesskey
-              disabled
-              name
-              onblur
-              onfocus
-              tabindex
-              type
-              value)
+(def-html-tag <:button :global :event
+	      autofocus
+	      disabled
+	      form
+	      formaction
+	      formenctype
+	      formnovalidate
+	      formtarget
+	      name
+	      type
+	      value)
 
-(def-html-tag <:caption :core :event :i18n)
+(def-html-tag <:canvas :global :event
+	      height
+	      width)
 
-(def-html-tag <:cite :core :event :i18n)
+(def-html-tag <:caption :global :event
+	      align)
 
-(def-html-tag <:code :core :event :i18n)
+;; HTML <center> Tag. Not Supported in HTML5.
 
-(def-empty-html-tag <:col :core :event :i18n
+(def-html-tag <:cite :global :event)
+
+(def-html-tag <:code :global :event)
+
+(def-empty-html-tag <:col :global :event
                     align
                     char
                     charoff
@@ -138,7 +156,7 @@
                     valign
                     width)
 
-(def-html-tag <:colgroup :core :event :i18n
+(def-html-tag <:colgroup :global :event
               align
               char
               charoff
@@ -146,46 +164,79 @@
               valign
               width)
 
-(def-html-tag <:dd :core :event :i18n)
+(def-html-tag <:datalist :global :event)
 
-(def-html-tag <:del :core :event :i18n
+(def-html-tag <:dd :global :event)
+
+(def-html-tag <:del :global :event
               cite
               datetime)
 
-(def-html-tag <:dfn :core :event :i18n)
+(def-html-tag <:details :global :event
+	      open)
 
-(def-html-tag <:div :core :event :i18n)
+(def-html-tag <:dfn :global :event)
 
-(def-html-tag <:dl :core :event :i18n)
+(def-html-tag <:dialog :global :event
+	      open)
 
-(def-html-tag <:dt :core :event :i18n)
+;; HTML <dir> Tag. Not Supported in HTML5.
 
-(def-html-tag <:em :core :event :i18n)
+(def-html-tag <:div :global :event
+	      align)
 
-(def-html-tag <:fieldset :core :event :i18n)
+(def-html-tag <:dl :global :event)
 
-(def-html-tag <:form :core :event :i18n
+(def-html-tag <:dt :global :event)
+
+(def-html-tag <:em :global :event)
+
+(def-html-tag <:embed :global :event
+	      height
+	      src
+	      type
+	      width)
+   
+(def-html-tag <:fieldset :global :event
+	      disabled
+	      form
+	      name)
+
+(def-html-tag <:figcaption :global :event)
+
+(def-html-tag <:figure :global :event)
+
+;; The <font> tag is not supported in HTML5. Use CSS instead.
+
+(def-html-tag <:footer :global :event)
+
+(def-html-tag <:form :global :event
               action
               accept-charset
+	      autocomplete
               enctype
               method
               name
+	      novalidate
               onreset
               onsubmit
               target)
 
+;; The <frame> tag is not supported in HTML5.
 (def-empty-html-tag <:frame :core
                     frameborder
                     longdesc
                     marginheight
                     marginwidth
+		    name
                     noresize
                     scrolling
                     src)
 
+;; HTML <frameset> Tag. Not Supported in HTML5.
 (def-html-tag <:frameset :core
               cols
-              onload
+              ;;onload
               olunload
               rows)
 
@@ -344,12 +395,13 @@
 
 (def-html-tag <:p :core :event :i18n)
 
-(def-empty-html-tag <:param
-                    name
-                    id
-                    type
-                    value
-                    valuetype)
+;; 原來的 html+ 也有設定，要確認用哪一個 (2017.05.01) todo
+;; (def-empty-html-tag <:param
+;;                     name
+;;                     id
+;;                     type
+;;                     value
+;;                     valuetype)
 
 (def-html-tag <:pre :core :event :i18n)
 
@@ -466,8 +518,9 @@
 
 (def-html-tag <:var :core :event :i18n)
 
-(deftag <:embed (&allow-other-attributes others)
-  (emit-empty-tag "embed" others))
+;; 使用上方設定的 <:embed
+;; (deftag <:embed (&allow-other-attributes others)
+;;   (emit-empty-tag "embed" others))
 
 ;; Copyright (c) 2002-2005, Edward Marco Baringer
 ;; All rights reserved. 
