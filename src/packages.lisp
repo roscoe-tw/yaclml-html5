@@ -79,9 +79,10 @@
    #:dialog #:div
    #:dl #:dt #:em #:embed #:fieldset #:figcaption #:figure #:footer #:form
    #:frame #:frameset #:h1 #:h2 #:h3 #:h4 #:h5 #:h6 #:head #:header #:hr
-   #:html
-   #:i #:iframe #:img #:input #:ins #:kbd #:label #:legend #:li #:link
-   #:map #:meta #:noframes #:noscript #:object #:ol #:optgroup #:option
+   #:html   #:i #:iframe #:img #:input #:ins #:kbd  #:keygen #:label
+   #:legend #:li #:link #:main #:map #:make #:menu #:menuitem #:meta
+   #:meter
+   #:noframes #:noscript #:object #:ol #:optgroup #:option
    #:p #:param
    #:pre #:q #:samp #:script #:select #:small #:span
    #:strong #:style #:sub #:sup #:table #:tbody #:td #:textarea #:tfoot

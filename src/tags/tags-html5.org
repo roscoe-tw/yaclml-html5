@@ -438,84 +438,145 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 ;; 設定 <:html, :doctype "html" => <!DOCTYPE html>
 (def-tag-html :global manifest xmlns prologue doctype)
 
-(def-html-tag <:i :core :event :i18n)
+(def-html-tag <:i :global :event)
 
-(def-html-tag <:iframe :core
-              frameborder
-              longdesc
-              marginheight
-              marginwidth
-              name
-              scrolling
-              src
-	      width
-	      height)
+(def-html-tag <:iframe :global :event
+	      align
+	      frameborder
+	      height
+	      longdesc
+	      marginheight
+	      marginwidth
+	      name
+	      sandbox
+	      scrolling
+	      src
+	      srcdoc
+	      width)
 
-(def-empty-html-tag <:img :core :event :i18n
-                    alt
-                    src
-                    height
-                    ismap
-                    longdesc
-                    usemap
-                    width)
+(def-empty-html-tag <:img :global :event
+		    align
+		    alt
+		    border
+		    crossorigin
+		    height
+		    hspace
+		    ismap
+		    longdesc
+		    sizes
+		    src
+		    srcset
+		    usemap
+		    vspace
+		    width)
 
-(def-empty-html-tag <:input :core :event :i18n
-                    accept
-                    accesskey
-                    alt
-                    checked
-                    disabled
-                    maxlength
-                    name
-                    onblur
-                    onchange
-                    onfocus
-                    onselect
-                    readonly
-                    size
-                    src
-                    tabindex
-                    type
-                    usemap
-                    value
-                    width
-                    height)
+(def-empty-html-tag <:input :global :event
+		    accept
+		    align
+		    alt
+		    autocomplete
+		    autofocus
+		    checked
+		    dirname
+		    disabled
+		    form
+		    formaction
+		    formenctype
+		    formmethod
+		    formnovalidate
+		    formtarget
+		    height
+		    list
+		    max
+		    maxlength
+		    min
+		    multiple
+		    name
+		    pattern
+		    placeholder
+		    readonly
+		    required
+		    size
+		    src
+		    step
+		    type
+		    value
+		    width)
 
-(def-html-tag <:ins :core :event :i18n
+(def-html-tag <:ins :global :event
               cite
               datetime)
 
-(def-html-tag <:kbd :core :event :i18n)
+(def-html-tag <:kbd :global :event)
 
-(def-html-tag <:label :core :event :i18n 
-              accesskey
-              for
-              onblur
-              onfocus)
+(def-html-tag <:keygen :global :event
+	      autofocus
+	      challenge
+	      disabled
+	      form
+	      keytype
+	      name)
+	      
+(def-html-tag <:label :global :event
+	      for
+	      form)
 
-(def-html-tag <:legend :core :event :i18n
-              accesskey)
+(def-html-tag <:legend :global :event
+	      align)
 
-(def-html-tag <:li :core :event :i18n)
+(def-html-tag <:li :global :event
+	      type
+	      value)
 
-(def-empty-html-tag <:link :core :event :i18n
+(def-empty-html-tag <:link :global :event
+		    charset
+		    crossorigin
+		    href
+		    hreflang
+		    media
+		    rel
+		    rev
+		    sizes
+		    target
+		    type)
+
+(def-html-tag <:main :global :event)
+	      
+(def-html-tag <:map :global :event
+	      name)
+
+(def-html-tag <:make :global :event)
+
+;; Note: The <menu> tag is only supported in Firefox, and it only works for context menus.
+(def-html-tag <:menu :global :event
+	      label
+	      type)
+
+(def-html-tag <:menuitem :global :event
+	      checked
+	      command
+	      default
+	      disabled
+	      icon
+	      label
+	      radiogroup
+	      type)
+	      
+(def-empty-html-tag <:meta :global
                     charset
-                    href
-                    hreflang
-                    media
-                    rel
-                    rev
-                    type)
-
-(def-html-tag <:map :core :event :i18n
-              name)
-
-(def-empty-html-tag <:meta :i18n
                     content
                     http-equiv
                     name
                     scheme)
+
+(def-html-tag <:meter :global :event
+	      form
+	      high
+	      low
+	      max
+	      min
+	      optimum
+	      value)
 
 (def-html-tag <:noframes :core :event :i18n)
 
