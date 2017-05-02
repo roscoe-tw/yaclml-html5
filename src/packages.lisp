@@ -81,12 +81,15 @@
    #:frame #:frameset #:h1 #:h2 #:h3 #:h4 #:h5 #:h6 #:head #:header #:hr
    #:html   #:i #:iframe #:img #:input #:ins #:kbd  #:keygen #:label
    #:legend #:li #:link #:main #:map #:make #:menu #:menuitem #:meta
-   #:meter
-   #:noframes #:noscript #:object #:ol #:optgroup #:option
-   #:p #:param
-   #:pre #:q #:samp #:script #:select #:small #:span
-   #:strong #:style #:sub #:sup #:table #:tbody #:td #:textarea #:tfoot
-   #:th #:thead #:title #:tr #:tt #:ul #:var
+   #:meter #:nav
+   #:noframes #:noscript #:object #:ol #:optgroup #:option #:output
+   #:p #:param #:picture
+   #:pre #:progress #:q #:rp #:rt #:ruby #:s
+   #:samp #:script #:section #:select #:small #:source #:span
+   #:strong #:style #:sub #:summary #:sup #:table #:tbody #:td #:textarea
+   #:tfoot
+   #:th #:thead #:time #:title #:tr #:track #:tt #:u #:ul #:var #:video
+   #:wbr
    ;; Not really HTML4, but close enough
    #:applet #:param #:marquee ;; #:embed
    ;; YACLML extended HTML

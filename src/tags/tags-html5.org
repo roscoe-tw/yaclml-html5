@@ -578,131 +578,186 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 	      optimum
 	      value)
 
+(def-html-tag <:nav :global :event)
+
+;; The <noframes> tag is not supported in HTML5.
 (def-html-tag <:noframes :core :event :i18n)
 
-(def-html-tag <:noscript :core :event :i18n)
+(def-html-tag <:noscript :global :event)
 
-(def-html-tag <:object :core :event :i18n
-              archive
-              classid
-              codebase
-              codetype
-              data
-              declare
-              height
-              name
-              standby
-              tabindex
-              type
-              usemap
-              width)
+(def-html-tag <:object :global :event
+	      align
+	      archive
+	      border
+	      classid
+	      codebase
+	      codetype
+	      data
+	      declare
+	      form
+	      height
+	      hspace
+	      name
+	      standby
+	      type
+	      usemap
+	      vspace
+	      width)
 
-(def-html-tag <:ol :core :event :i18n)
 
-(def-html-tag <:optgroup :core :event :i18n
-              label
-              disabled)
+(def-html-tag <:ol :global :event
+	      compact
+	      reversed
+	      start
+	      type)
 
-(def-html-tag <:option :core :event :i18n
+(def-html-tag <:optgroup :global :event
+              disabled
+	      label)
+
+(def-html-tag <:option :global :event
               disabled
               label
               selected
               value)
 
-(def-html-tag <:p :core :event :i18n)
+(def-html-tag <:output :global :event
+	      for
+	      form
+	      name)
+
+(def-html-tag <:p :global :event
+	      align)
 
 ;; 原來的 html+ 也有設定，要確認用哪一個 (2017.05.01) todo
-;; (def-empty-html-tag <:param
-;;                     name
-;;                     id
-;;                     type
-;;                     value
-;;                     valuetype)
+(def-empty-html-tag <:param :global :event
+                    name
+                    type
+                    value
+                    valuetype)
 
-(def-html-tag <:pre :core :event :i18n)
+(def-html-tag <:picture :global :event)
 
-(def-html-tag <:q :core :event :i18n
+(def-html-tag <:pre :global :event
+	      width)
+
+(def-html-tag <:progress :global :event
+	      max
+	      value)
+
+(def-html-tag <:q :global :event
               cite)
 
-(def-html-tag <:samp :core :event :i18n)
+(def-html-tag <:rp :global :event)
 
-(def-html-tag <:script
-              type
-              charset
-              defer
-              src
-              title
-              language)
+(def-html-tag <:rt :global :event)
 
-(def-html-tag <:select :core :event :i18n
+(def-html-tag <:ruby :global :event)
+
+(def-html-tag <:s :global :event)
+
+(def-html-tag <:samp :global :event)
+
+(def-html-tag <:script :global
+              async
+	      charset
+	      defer
+	      src
+	      type
+	      xml:space)
+
+(def-html-tag <:section :global :event)
+
+(def-html-tag <:select :global :event
+	      autofocus
               disabled
+	      form
               multiple
               name
-              accesskey
-              onblur
-              onfocus
-              onchange
-              size
-              tabindex)
+              size)
 
-(def-html-tag <:small :core :event :i18n)
+(def-html-tag <:small :global :event)
 
-(def-html-tag <:span :core :event :i18n)
+(def-html-tag <:source :global :event
+	      src
+	      srcset
+	      media
+	      sizes
+	      type)
 
-(def-html-tag <:strong :core :event :i18n)
+(def-html-tag <:span :global :event)
 
-(def-html-tag <:style :i18n
-              type
+;; The <strike> tag is not supported in HTML5. Use <del> or <s> instead.
+
+(def-html-tag <:strong :global :event)
+
+(def-html-tag <:style :global :event
               media
-              title)
+	      scoped
+	      type)
 
-(def-html-tag <:sub :core :event :i18n)
+(def-html-tag <:sub :global :event)
 
-(def-html-tag <:sup :core :event :i18n)
+(def-html-tag <:summary :global :event)
 
-(def-html-tag <:table :core :event :i18n
-              border
-              cellpadding
-              cellspacing
-              frame
-              summary
-              width)
+(def-html-tag <:sup :global :event)
 
-(def-html-tag <:tbody :core :event :i18n
+(def-html-tag <:table :global :event
+	      align
+	      bgcolor
+	      border
+	      cellpadding
+	      cellspacing
+	      frame
+	      rules
+	      sortable
+	      summary
+	      width)
+
+
+(def-html-tag <:tbody :global :event
               align
               char
               charoff
               valign)
 
-(def-html-tag <:td :core :event :i18n
+(def-html-tag <:td :global :event
               abbr
               align
               axis
+	      bgcolor
               char
               charoff
               colspan
               headers
+	      height
+	      nowrap
               rowspan
               scope
               valign
               width)
 
-(def-html-tag <:textarea :core :event :i18n
-              cols
-              rows
-              accesskey
-              disables
-              name
-              onblur
-              onchange
-              onfocus
-              onselect
-              readonly
-              tabindex)
+(def-html-tag <:textarea :global :event
+	      autofocus
+	      cols
+	      dirname
+	      disabled
+	      form
+	      maxlength
+	      name
+	      placeholder
+	      readonly
+	      required
+	      rows
+	      wrap)
 
-(def-html-tag <:tfoot :core :event :i18n)
+(def-html-tag <:tfoot :global :event
+	      align
+	      char
+	      charoff
+	      valign)
 
-(def-html-tag <:th :core :event :i18n
+(def-html-tag <:th :global :event
               abbr
               align
               axis
@@ -710,29 +765,62 @@ http://www.w3.org/TR/xhtml1/#guidelines"
               charoff
               colspan
               headers
+	      height
+	      nowrap
               rowspan
               scope
-              valign)
+	      sorted
+              valign
+	      width)
 
-(def-html-tag <:thead :core :event :i18n
+(def-html-tag <:thead :global :event
               align
               char
               charoff
               valign)
 
-(def-html-tag <:title :i18n)
+(def-html-tag <:time :global :event
+	      datetime)
 
-(def-html-tag <:tr :core :event :i18n
+(def-html-tag <:title :global)
+
+(def-html-tag <:tr :global :event
               align
+	      bgcolor
               char
               charoff
               valign)
 
+(def-html-tag <:track :global :event
+	      default
+	      kind
+	      label
+	      src
+	      srclang)
+
+;; The <tt> tag is not supported in HTML5.
 (def-html-tag <:tt :core :event :i18n)
 
-(def-html-tag <:ul :core :event :i18n)
+(def-html-tag <:u :global :event)
 
-(def-html-tag <:var :core :event :i18n)
+(def-html-tag <:ul :global :event
+	      compact
+	      type)
+
+(def-html-tag <:var :global :event)
+
+(def-html-tag <:video :global :event
+	      autoplay
+	      controls
+	      height
+	      loop
+	      muted
+	      poster
+	      preload
+	      src
+	      width)
+
+(def-html-tag <:wbr :global :event)
 
 ;; 使用上方設定的 <:embed
 ;; (deftag <:embed (&allow-other-attributes others)

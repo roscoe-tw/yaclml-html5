@@ -52,9 +52,10 @@ PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
 
 (def-html-tag <:applet code archive width height)
 
-(deftag <:param (&attribute name value)
-  (emit-empty-tag "param" `("name" ,name
-                            "value" ,value)))
+;;; 配合 html5.lisp 內容修改
+;; (deftag <:param (&attribute name value)
+;;   (emit-empty-tag "param" `("name" ,name
+;;                             "value" ,value)))
 
 ;; Copyright (c) 2002-2005, Edward Marco Baringer
 ;; All rights reserved. 
