@@ -413,16 +413,22 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 		     (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
 	 ;; 如果傳來 "html" 預設為 html5 2017.05.02 L.S.K.
 	 (when doctype
-	   (cond ((not (equal doctype "html"))
+;;	   (cond ((not (equal doctype "html"))
 		  (emit-code `(awhen ,doctype
-				(princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
-				(princ it *yaclml-stream*)
+;;				(princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
+				(princ "<!DOCTYPE html" *yaclml-stream*)
+				(unless (or (equal (string-downcase it) "html")
+					    (equal it t)
+					    (equal it "")
+					    (equal (string-downcase it) "doctype"))
+				  (princ " PUBLIC " *yaclml-stream*)
+				  (princ it *yaclml-stream*))
 				(princ (strcat ">" ~%) *yaclml-stream*))))
-		 (t
-		  (emit-code `(awhen ,doctype
-				(princ "<!DOCTYPE " *yaclml-stream*)
-				(princ it *yaclml-stream*)
-				(princ (strcat ">" ~%) *yaclml-stream*))))))
+		 ;; (t
+		 ;;  (emit-code `(awhen ,doctype
+		 ;; 		(princ "<!DOCTYPE " *yaclml-stream*)
+		 ;; 		(princ it *yaclml-stream*)
+		 ;; 		(princ (strcat ">" ~%) *yaclml-stream*))))))
 	 (when prologue
 	   (emit-code `(awhen ,prologue
 			 (princ it *yaclml-stream*))))
