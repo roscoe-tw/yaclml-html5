@@ -79,7 +79,7 @@
    ;; HTML5
    #:!-- #:!DOCTYPE #:a #:abbr #:acronym #:address ;; #:applet
    #:area #:article #:aside #:audio #:b #:base #:bdi #:bdo #:big
-   #:blockquote #:body #:br #:button #:canvas #:caption #:cite #:col
+   #:blockquote #:body #:br #:button #:canvas #:caption #:cite ;; #:col
    #:code #:col #:colgroup #:datalist #:dd #:del #:details #:dfn
    #:dialog #:div
    #:dl #:dt #:em #:embed #:fieldset #:figcaption #:figure #:footer #:form
@@ -96,7 +96,8 @@
    #:th #:thead #:time #:title #:tr #:track #:tt #:u #:ul #:var #:video
    #:wbr
    ;; Not really HTML4, but close enough
-   #:applet #:param #:marquee ;; #:embed
+   #:applet ;; #:param
+   #:marquee ;; #:embed
    ;; YACLML extended HTML
    #:href #:stylesheet #:text #:submit #:image #:checkbox #:file
    #:as-is #:as-html #:call-with-yaclml-stream #:comment #:progn

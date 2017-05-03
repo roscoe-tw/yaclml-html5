@@ -259,7 +259,9 @@
              xlink:title
              xlink:show
              xlink:actuate
-             type)
+	     ;; 因為和 xml:type 取 (symbol-name 'xlink-type) -> "type" 所以先取消它
+             ;; type
+	     )
 
 (def-svg-tag circle
              id
@@ -1170,7 +1172,8 @@
              d
              orientation
              arabic-form
-             lang
+	     ;; 因為和 xml:lang 取 (symbol-name 'xml:lang) -> "LANG" 所以先取消它
+             ;; lang
              horiz-adv-x
              vert-origin-x
              vert-origin-y
