@@ -145,8 +145,8 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 #+END_SRC
 ** tags mapping to HTML5 tags.
 - [[https://www.w3schools.com/tags/]]
-*** html5-1.lisp
-#+BEGIN_SRC lisp :tangle html5-1.lisp :padline no
+*** html5-1
+#+BEGIN_SRC lisp :tangle html5.lisp :padline no
 ;; -*- lisp -*-
 
 (in-package :it.bese.yaclml)
@@ -346,11 +346,11 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 (def-html-tag <:dt :global :event)
 
 #+END_SRC
-*** html5-2.lisp
-#+BEGIN_SRC lisp :tangle html5-2.lisp :padline no
+*** html5-2
+#+BEGIN_SRC lisp :tangle html5.lisp :padline no
 ;; -*- lisp -*-
 
-(in-package :it.bese.yaclml)
+;; (in-package :it.bese.yaclml)
 
 (def-html-tag <:em :global :event)
 
@@ -548,11 +548,11 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 #+END_SRC
 
-*** html5-3.lisp
-#+BEGIN_SRC lisp :tangle html5-3.lisp :padline no
+*** html5-3
+#+BEGIN_SRC lisp :tangle html5.lisp :padline no
 ;; -*- lisp -*-
 
-(in-package :it.bese.yaclml)
+;; (in-package :it.bese.yaclml)
 	      
 (def-html-tag <:label :global :event
 	      for
@@ -742,11 +742,11 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 #+END_SRC
 
-*** html5-4.lisp
-#+BEGIN_SRC lisp :tangle html5-4.lisp :padline no
+*** html5-4
+#+BEGIN_SRC lisp :tangle html5.lisp :padline no
 ;; -*- lisp -*-
 
-(in-package :it.bese.yaclml)
+;; (in-package :it.bese.yaclml)
 
 (def-html-tag <:table :global :event
 	      align

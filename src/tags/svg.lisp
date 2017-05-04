@@ -1061,6 +1061,9 @@
              width
              height
              transform)
+;; -*- lisp -*-
+
+;;(in-package :it.bese.yaclml.svg)
 
 (def-svg-tag g
              id

@@ -195,6 +195,9 @@
 (def-html-tag <:dl :global :event)
 
 (def-html-tag <:dt :global :event)
+;; -*- lisp -*-
+
+;; (in-package :it.bese.yaclml)
 
 (def-html-tag <:em :global :event)
 
@@ -389,6 +392,9 @@
 	      form
 	      keytype
 	      name)
+;; -*- lisp -*-
+
+;; (in-package :it.bese.yaclml)
 	      
 (def-html-tag <:label :global :event
 	      for
@@ -552,12 +558,12 @@
 
 (def-html-tag <:small :global :event)
 
-(def-html-tag <:source :global :event
-	      src
-	      srcset
-	      media
-	      sizes
-	      type)
+(def-empty-html-tag <:source :global :event
+		    src
+		    srcset
+		    media
+		    sizes
+		    type)
 
 (def-html-tag <:span :global :event)
 
@@ -575,6 +581,9 @@
 (def-html-tag <:summary :global :event)
 
 (def-html-tag <:sup :global :event)
+;; -*- lisp -*-
+
+;; (in-package :it.bese.yaclml)
 
 (def-html-tag <:table :global :event
 	      align

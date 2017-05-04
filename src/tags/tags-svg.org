@@ -1,6 +1,6 @@
 * svg.lisp
-** svg-1.lisp
-#+BEGIN_SRC lisp :tangle svg-1.lisp :padline no
+** svg.lisp
+#+BEGIN_SRC lisp :tangle svg.lisp :padline no
 ;; -*- lisp -*-
 
 (in-package :it.bese.yaclml.svg)
@@ -1065,11 +1065,11 @@
              height
              transform)
 #+END_SRC
-** svg-2.lisp
-#+BEGIN_SRC lisp :tangle svg-2.lisp :padline no
+** svg-2
+#+BEGIN_SRC lisp :tangle svg.lisp :padline no
 ;; -*- lisp -*-
 
-(in-package :it.bese.yaclml.svg)
+;;(in-package :it.bese.yaclml.svg)
 
 (def-svg-tag g
              id
