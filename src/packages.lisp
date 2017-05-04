@@ -75,7 +75,7 @@
    #:!-- #:!DOCTYPE #:a #:abbr #:acronym #:address ;; #:applet
    #:area #:article #:aside #:audio #:b #:base #:bdi #:bdo #:big
    #:blockquote #:body #:br #:button #:canvas #:caption #:cite ;; #:col
-   #:code #:col #:colgroup #:datalist #:dd #:del #:details #:dfn
+   #:code #:col #:colgroup #:data #:datalist #:dd #:del #:details #:dfn
    #:dialog #:div
    #:dl #:dt #:em #:embed #:fieldset #:figcaption #:figure #:footer #:form
    #:frame #:frameset #:h1 #:h2 #:h3 #:h4 #:h5 #:h6 #:head #:header #:hr

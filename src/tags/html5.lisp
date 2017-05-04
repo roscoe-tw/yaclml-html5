@@ -35,16 +35,14 @@
 (def-html-tag <:a :global :event
               charset
               coords
+	      download
               href
               hreflang
 	      media
               name
-              onblur
-              onfocus
               rel
               rev
               shape
-              tabindex
               target
               type)
 
@@ -79,8 +77,6 @@
 		    hreflang
 		    media
                     nohref
-                    onblur
-                    onfocus
 		    rel
                     shape
 		    target
@@ -110,6 +106,9 @@
 (def-html-tag <:bdi :global :event)
 
 (def-html-tag <:bdo :global :event)
+	      ;; :global 已有 'dir 屬性
+	      ;; dir
+
 
 ;; HTML <big> Tag. Not Supported in HTML5.
 (def-html-tag <:big :core :event :i18n)
@@ -133,6 +132,7 @@
 	      form
 	      formaction
 	      formenctype
+	      formmethod
 	      formnovalidate
 	      formtarget
 	      name
@@ -167,6 +167,9 @@
               span
               valign
               width)
+
+(def-html-tag <:data :global
+  value)
 
 (def-html-tag <:datalist :global :event)
 
@@ -222,8 +225,6 @@
               method
               name
 	      novalidate
-              onreset
-              onsubmit
               target)
 
 ;; The <frame> tag is not supported in HTML5.
@@ -287,9 +288,7 @@
 		     (xor prologue doctype)) () "You can only specify one of PROLOGUE or DOCTYPE")
 	 ;; 如果傳來 "html" 預設為 html5 2017.05.02 L.S.K.
 	 (when doctype
-;;	   (cond ((not (equal doctype "html"))
 		  (emit-code `(awhen ,doctype
-;;				(princ "<!DOCTYPE html PUBLIC " *yaclml-stream*)
 				(princ "<!DOCTYPE html" *yaclml-stream*)
 				(unless (or (equal (string-downcase it) "html")
 					    (equal it t)
@@ -298,11 +297,6 @@
 				  (princ " PUBLIC " *yaclml-stream*)
 				  (princ it *yaclml-stream*))
 				(princ (strcat ">" ~%) *yaclml-stream*))))
-		 ;; (t
-		 ;;  (emit-code `(awhen ,doctype
-		 ;; 		(princ "<!DOCTYPE " *yaclml-stream*)
-		 ;; 		(princ it *yaclml-stream*)
-		 ;; 		(princ (strcat ">" ~%) *yaclml-stream*))))))
 	 (when prologue
 	   (emit-code `(awhen ,prologue
 			 (princ it *yaclml-stream*))))
@@ -310,7 +304,6 @@
 			(list ,@(iter (for attr :in (make-effective-attributes (list :global)))
 				      (collect (string-downcase (symbol-name attr)))
 				      (collect attr)))
-			;;,@(list* "manifest" manifest "xmlns" xmlns)
 			,custom-attributes)
 	 (emit-body body)
 	 (emit-close-tag "html")))))
@@ -463,7 +456,7 @@
 ;; The <noframes> tag is not supported in HTML5.
 (def-html-tag <:noframes :core :event :i18n)
 
-(def-html-tag <:noscript :global :event)
+(def-html-tag <:noscript :global)
 
 (def-html-tag <:object :global :event
 	      align
@@ -554,6 +547,7 @@
 	      form
               multiple
               name
+	      required
               size)
 
 (def-html-tag <:small :global :event)
@@ -641,6 +635,7 @@
               abbr
               align
               axis
+	      bgcolor
               char
               charoff
               colspan

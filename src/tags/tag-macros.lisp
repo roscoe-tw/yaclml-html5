@@ -19,26 +19,48 @@
 			  'contextmenu ;; 'data-*
 			  'dir 'draggable 'dropzone 'hidden
 			  'id 'lang 'spellcheck 'style
-			  ;;'tabindex
+			  'tabindex
 			  'title 'translate))
-          (:event (attrs 'onclick 'ondblclick
-                         'onkeydown 'onkeypress
-                         'onkeyup 'onmousedown
-                         'onmousemove 'onmouseout
-                         'onmouseover 'onmouseup
-			 ;; 新增
-			 'onafterprint 'onbeforeprint
-			 'onbeforeuload 'onerror
-			 'onhashchange
-			 'onload
-			 'onmessage 'onoffline
-			 'ononline 'onpagehide
-			 'onpageshow 'onpopstate
-			 'onresize 'onstorge
-			 'onunload
-			 ))
+          (:event (attrs
+		   ;; Window Event Attributes
+		   'onafterprint 'onbeforeprint 'onbeforeuload
+		   'onerror 'onhashchange 'onload
+		   'onmessage 'onoffline 'ononline
+		   'onpagehide 'onpageshow 'onpopstate
+		   'onresize 'onstorge 'onunload
+		   ;; Form events
+		   'onblur 'onchange 'oncontextmenu
+		   'onfocus 'oninput 'oninvalid
+		   'onreset 'onsearch 'onselect
+		   'onsubmit
+		   ;; Keyboard Events
+		   'ondblclick 'onkeydown 'onkeypress
+		   'onkeyup
+		   ;; Mouse Events
+		   'onclick ;;'ondblclick
+		   'onmousedown
+		   'onmousemove 'onmouseout 'onmouseover
+		   'onmouseup 'onmousewheel 'onwheel
+		   ;; Drag Events
+		   'ondrag 'ondragend 'ondragenter
+		   'ondragleave 'ondragover 'ondragstart
+		   'ondrop 'onscroll
+		   ;; Clipboard Events
+		   'oncopy 'oncut 'onpaste
+		   ;; Media Events
+		   'onabort 'oncanplay 'oncanplaythrough
+		   'oncuechange 'ondurationchange 'onemptied
+		   'onended ;; 'onerror
+		   'onloadeddata 'onloadedmetadata 'onloadstart
+		   'onpause 'onplay 'onplaying
+		   'onprogress 'onratechange 'onseeked
+		   'onseeking 'onstalled 'onsuspend
+		   'ontimeupdate 'onvolumechange 'onwaiting
+		   ;; Misc Events
+		   'onshow 'ontoggle
+		   ))
           (t (attrs attr))))
-      (attrs))))
+	(attrs))))
 
 (defmacro def-empty-html-tag (name &rest attributes)
   "Define a tag that has `End Tag` set to Forbidden and `Empty`
