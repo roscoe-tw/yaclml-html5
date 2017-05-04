@@ -16,8 +16,12 @@
                                 :serial t
                                 :components ((:file "tag-macros")
 					     (:file "html5")
+					     ;; (:file "html5-2")
+					     ;; (:file "html5-3")
+					     ;; (:file "html5-4")
                                              (:file "standard-yaclml")
                                              (:file "svg")
+                                             ;; (:file "svg-2")
                                              (:file "html+"))
                                 :depends-on ("yaclml"))
                                (:module :tal

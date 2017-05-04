@@ -145,7 +145,8 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 #+END_SRC
 ** tags mapping to HTML5 tags.
 - [[https://www.w3schools.com/tags/]]
-#+BEGIN_SRC lisp :tangle html5.lisp :padline no
+*** html5-1.lisp
+#+BEGIN_SRC lisp :tangle html5-1.lisp :padline no
 ;; -*- lisp -*-
 
 (in-package :it.bese.yaclml)
@@ -344,6 +345,13 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 (def-html-tag <:dt :global :event)
 
+#+END_SRC
+*** html5-2.lisp
+#+BEGIN_SRC lisp :tangle html5-2.lisp :padline no
+;; -*- lisp -*-
+
+(in-package :it.bese.yaclml)
+
 (def-html-tag <:em :global :event)
 
 (def-html-tag <:embed :global :event
@@ -537,6 +545,14 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 	      form
 	      keytype
 	      name)
+
+#+END_SRC
+
+*** html5-3.lisp
+#+BEGIN_SRC lisp :tangle html5-3.lisp :padline no
+;; -*- lisp -*-
+
+(in-package :it.bese.yaclml)
 	      
 (def-html-tag <:label :global :event
 	      for
@@ -700,12 +716,12 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 (def-html-tag <:small :global :event)
 
-(def-html-tag <:source :global :event
-	      src
-	      srcset
-	      media
-	      sizes
-	      type)
+(def-empty-html-tag <:source :global :event
+		    src
+		    srcset
+		    media
+		    sizes
+		    type)
 
 (def-html-tag <:span :global :event)
 
@@ -723,6 +739,14 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 (def-html-tag <:summary :global :event)
 
 (def-html-tag <:sup :global :event)
+
+#+END_SRC
+
+*** html5-4.lisp
+#+BEGIN_SRC lisp :tangle html5-4.lisp :padline no
+;; -*- lisp -*-
+
+(in-package :it.bese.yaclml)
 
 (def-html-tag <:table :global :event
 	      align
@@ -882,5 +906,9 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 
 #+END_SRC
 * TODO
-** TODO compilation : caught 6 STYLE-WARNING conditions
+** DONE compilation : caught 6 STYLE-WARNING conditions
+   CLOSED: [2017-05-04 週四 22:20]
    有重複設定的情況? 
+** TODO 測試分開編程
+   <2017-05-04 週四>
+   因為 "Heap exhausted, game over."，所以測試分開編。
