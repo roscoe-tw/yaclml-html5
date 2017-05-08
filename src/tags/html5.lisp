@@ -297,8 +297,8 @@
 					    (equal it t)
 					    (equal it "")
 					    (equal (string-downcase it) "doctype"))
-				  (princ " PUBLIC " *yaclml-stream*)
-				  (princ it *yaclml-stream*))
+				  (princ " PUBLIC " *yaclml-stream*))
+				(princ it *yaclml-stream*)
 				(princ (strcat ">" ~%) *yaclml-stream*))))
 	 (when prologue
 	   (emit-code `(awhen ,prologue
