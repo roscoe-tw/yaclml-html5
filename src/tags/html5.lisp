@@ -559,7 +559,6 @@
 (def-html-tag <:small :global :event)
 
 (def-empty-html-tag <:source :global :event
-		   ;; charset
 		    src
 		    srcset
 		    media

@@ -717,7 +717,6 @@ http://www.w3.org/TR/xhtml1/#guidelines"
 (def-html-tag <:small :global :event)
 
 (def-empty-html-tag <:source :global :event
-		   ;; charset
 		    src
 		    srcset
 		    media
